@@ -1,15 +1,15 @@
-use crate::factory::{Factory, Item, ItemTrait, Link, Page, PageTrait, Tray};
+use crate::factory::{Factory, Item, ItemTrait, Link, Page, PageTrait, Tray, TrayTrait};
 use std::fs::File;
 use std::io::prelude::*;
 
 pub struct TableFactory {}
 
 impl Factory for TableFactory {
-    fn create_link(&self, caption: String, url: String) -> Box<dyn ItemTrait> {
+    fn create_link(&self, caption: String, url: String) -> Box<dyn TrayTrait> {
         Box::new(TableLink::new(caption, url))
     }
 
-    fn create_tray(&self, caption: String) -> Box<dyn ItemTrait> {
+    fn create_tray(&self, caption: String) -> Box<dyn TrayTrait> {
         Box::new(TableTray::new(caption))
     }
 
@@ -40,10 +40,11 @@ impl ItemTrait for TableLink {
             self.link.url, self.link.item.caption
         )
     }
+}
 
+impl TrayTrait for TableLink {
     // dummy method
-    #[warn(unused_variables)]
-    fn add(&mut self, _item: Box<dyn ItemTrait>) {}
+    fn add(&mut self, _item: Box<dyn TrayTrait>) {}
 }
 
 pub struct TableTray {
@@ -83,8 +84,10 @@ impl ItemTrait for TableTray {
 
         buffer
     }
+}
 
-    fn add(&mut self, item: Box<dyn ItemTrait>) {
+impl TrayTrait for TableTray {
+    fn add(&mut self, item: Box<dyn TrayTrait>) {
         self.tray.tray.push(item);
     }
 }
@@ -125,13 +128,13 @@ impl ItemTrait for TablePage {
 
         buffer
     }
-
-    fn add(&mut self, tray: Box<dyn ItemTrait>) {
-        self.page.content.push(tray);
-    }
 }
 
 impl PageTrait for TablePage {
+    fn add(&mut self, tray: Box<dyn TrayTrait>) {
+        self.page.content.push(tray);
+    }
+
     #[allow(unused_must_use)]
     fn output(&self) {
         let file_name = format!("{}.html", self.page.title);
