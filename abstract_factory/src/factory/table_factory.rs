@@ -18,12 +18,12 @@ impl Factory for TableFactory {
     }
 }
 
-pub struct TableLink {
+struct TableLink {
     link: Link,
 }
 
 impl TableLink {
-    pub fn new(caption: String, url: String) -> TableLink {
+    fn new(caption: String, url: String) -> TableLink {
         TableLink {
             link: Link {
                 item: Item { caption: caption },
@@ -47,12 +47,12 @@ impl TrayTrait for TableLink {
     fn add(&mut self, _item: Box<dyn TrayTrait>) {}
 }
 
-pub struct TableTray {
+struct TableTray {
     tray: Tray,
 }
 
 impl TableTray {
-    pub fn new(caption: String) -> TableTray {
+    fn new(caption: String) -> TableTray {
         TableTray {
             tray: Tray {
                 item: Item { caption: caption },
@@ -92,7 +92,7 @@ impl TrayTrait for TableTray {
     }
 }
 
-pub struct TablePage {
+struct TablePage {
     page: Page,
 }
 
