@@ -11,11 +11,11 @@ pub trait ItemTrait {
     fn make_html(&self) -> String;
 }
 
-pub struct Item {
+struct Item {
     caption: String,
 }
 
-pub struct Link {
+struct Link {
     item: Item,
     url: String,
 }
@@ -24,7 +24,7 @@ pub trait TrayTrait: ItemTrait {
     fn add(&mut self, item: Box<dyn TrayTrait>);
 }
 
-pub struct Tray {
+struct Tray {
     item: Item,
     tray: Vec<Box<dyn TrayTrait>>,
 }
@@ -34,7 +34,7 @@ pub trait PageTrait: ItemTrait {
     fn output(&self);
 }
 
-pub struct Page {
+struct Page {
     title: String,
     author: String,
     content: Vec<Box<dyn TrayTrait>>,

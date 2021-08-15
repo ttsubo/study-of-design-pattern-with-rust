@@ -18,12 +18,12 @@ impl Factory for ListFactory {
     }
 }
 
-pub struct ListLink {
+struct ListLink {
     link: Link,
 }
 
 impl ListLink {
-    pub fn new(caption: String, url: String) -> ListLink {
+    fn new(caption: String, url: String) -> ListLink {
         ListLink {
             link: Link {
                 item: Item { caption: caption },
@@ -47,12 +47,12 @@ impl TrayTrait for ListLink {
     fn add(&mut self, _item: Box<dyn TrayTrait>) {}
 }
 
-pub struct ListTray {
+struct ListTray {
     tray: Tray,
 }
 
 impl ListTray {
-    pub fn new(caption: String) -> ListTray {
+    fn new(caption: String) -> ListTray {
         ListTray {
             tray: Tray {
                 item: Item { caption: caption },
@@ -85,12 +85,12 @@ impl TrayTrait for ListTray {
     }
 }
 
-pub struct ListPage {
+struct ListPage {
     page: Page,
 }
 
 impl ListPage {
-    pub fn new(title: String, author: String) -> ListPage {
+    fn new(title: String, author: String) -> ListPage {
         ListPage {
             page: Page {
                 title: title,
